@@ -1,4 +1,4 @@
-/**
+    /**
  * Class to represents a single item of a SinglyLinkedList that can be
  * linked to other Node instances to form a list of linked nodes.
  */
@@ -40,43 +40,7 @@ class SinglyLinkedList {
      */
     constructor() {
         this.head = null;
-    }
-
-    /**
-     * Determines if this list is empty.
-     * - Time: O(?).
-     * - Space: O(?).
-     * @returns {boolean}
-     */
-    isEmpty() {
-        if(this.head == null)
-            return true
-        return false
-    }
-
-    /**
-     * Creates a new node with the given data and inserts it at the back of
-     * this list.
-     * - Time: O(?).
-     * - Space: O(?).
-     * @param {any} data The data to be added to the new node.
-     * @returns {SinglyLinkedList} This list.
-     */
-    insertAtBack(data) {
-        if(this.isEmpty()){
-            this.head = new Node(data)
-            return this 
-        }
-        let runner = this.head
-        while(runner.next != null) {
-            console.log(runner.data)
-            runner = runner.next
-        }
-            runner.next = new Node(data);
-            return this
-    }
-
-        /**
+    }/**
      * Creates a new node with the given data and inserts that node at the front
      * of this list.
      * - Time: (?).
@@ -84,12 +48,12 @@ class SinglyLinkedList {
      * @param {any} data The data for the new node.
      * @returns {SinglyLinkedList} This list.
      */
-        insertAtFront(data) {
-            let new_node = new Node(data);
-            new_node.next = this.head;
-            this.head = new_node;
-            return this
-        }
+    insertAtFront(data) {
+        let new_node = new Node(data);
+        new_node.next = this.head;
+        this.head = new_node;
+        return this
+    }
 
         /**
      * Removes the first node of this list.
@@ -121,64 +85,4 @@ class SinglyLinkedList {
         }
         return sum / count
     }
-
-
-
-
-
-    /**
-     * Calls insertAtBack on each item of the given array.
-     * - Time: O(n * m) n = list length, m = arr.length.
-     * - Space: O(1) constant.
-     * @param {Array<any>} vals The data for each new node.
-     * @returns {SinglyLinkedList} This list.
-     */
-    seedFromArr(vals) {
-        for (const item of vals) {
-        this.insertAtBack(item);
-        }
-        return this;
-    }
-
-    /**
-     * Converts this list into an array containing the data of each node.
-     * - Time: O(n) linear.
-     * - Space: O(n).
-     * @returns {Array<any>} An array of each node's data.
-     */
-    toArr() {
-        const arr = [];
-        let runner = this.head;
-    
-        while (runner) {
-        arr.push(runner.data);
-        runner = runner.next;
-        }
-    return arr;
-    }
 }
-
-
-
-
-const emptyList = new SinglyLinkedList();
-
-const singleNodeList = new SinglyLinkedList().seedFromArr([1]);
-const biNodeList = new SinglyLinkedList().seedFromArr([1, 2]);
-const firstThreeList = new SinglyLinkedList().seedFromArr([1, 2, 3]);
-const secondThreeList = new SinglyLinkedList().seedFromArr([4, 5, 6]);
-const unorderedList = new SinglyLinkedList().seedFromArr([
-    -5, -10, 4, -3, 6, 1, -7, -2,
-]);
-
-// node 4 connects to node 1, back to head
-const perfectLoopList = new SinglyLinkedList().seedFromArr([1, 2, 3, 4]);
-// perfectLoopList.head.next.next.next = perfectLoopList.head;
-
-// node 4 connects to node 2
-const loopList = new SinglyLinkedList().seedFromArr([1, 2, 3, 4]);
-// loopList.head.next.next.next = loopList.head.next;
-
-const sortedDupeList = new SinglyLinkedList().seedFromArr([
-1, 1, 1, 2, 3, 3, 4, 5, 5,
-]);
