@@ -42,6 +42,61 @@ class SinglyLinkedList {
         this.head = null;
     }
 
+
+    /**
+   * Removes the last node of this list.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @returns {any} The data from the node that was removed.
+   */
+    removeBack() {
+        if(this.isEmpty())
+            return null
+        let runner = this.head
+        while(runner.next.next != null)
+            runner = runner.next;
+        let oldTail = runner.next;
+        runner.next = null;
+        return oldTail
+    }
+
+    /**
+   * Determines whether or not the given search value exists in this list.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {any} val The data to search for in the nodes of this list.
+   * @returns {boolean}
+   */
+    contains(val) {
+        let runner = this.head;
+        while (runner != null){
+            if(runner.data == val) return true
+        }
+        return false 
+    }
+
+    /**
+   * Determines whether or not the given search value exists in this list.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {any} val The data to search for in the nodes of this list.
+   * @param {?node} current The current node during the traversal of this list
+   *    or null when the end of the list has been reached.
+   * @returns {boolean}
+   */
+    containsRecursive(val, current = this.head) {
+        if(this.isEmpty()){
+            return false 
+        }
+        if(current.data == val){
+            return true
+        }
+        if(current.next == null) {
+            return false 
+        }
+        return this.containsRecursive(val, current.next)
+    }
+
     /**
      * Determines if this list is empty.
      * - Time: O(?).
@@ -173,12 +228,14 @@ const unorderedList = new SinglyLinkedList().seedFromArr([
 
 // node 4 connects to node 1, back to head
 const perfectLoopList = new SinglyLinkedList().seedFromArr([1, 2, 3, 4]);
-// perfectLoopList.head.next.next.next = perfectLoopList.head;
+// // perfectLoopList.head.next.next.next = perfectLoopList.head;
 
-// node 4 connects to node 2
+// // node 4 connects to node 2
 const loopList = new SinglyLinkedList().seedFromArr([1, 2, 3, 4]);
 // loopList.head.next.next.next = loopList.head.next;
 
 const sortedDupeList = new SinglyLinkedList().seedFromArr([
 1, 1, 1, 2, 3, 3, 4, 5, 5,
 ]);
+
+const tester = new SinglyLinkedList().removeBack([1, 4, 5, 6, 7]);
