@@ -42,6 +42,74 @@ class SinglyLinkedList {
         this.head = null;
     }
 
+            /**
+   * Retrieves the data of the second to last node in this list.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @returns {any} The data of the second to last node or null if there is no
+   *    second to last node.
+   */
+        secondToLast() {
+            if(this.isEmpty()){
+                return null
+            }
+            if(this.head.next == null){
+                return null
+            }
+            let runner = this.head;
+            while(runner.next.next != null){
+                runner = runner.next;
+            }
+            return runner.data
+        }
+        
+    /**
+     * Removes the node that has the matching given val as it's data.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {any} val The value to compare to the node's data to find the
+     *    node to be removed.
+     * @returns {Node/null} The removed node.
+     */
+        removeVal(val) {
+            if(this.isEmpty()){
+                return false
+            }
+            let runner = this.head;
+            while(runner != null){
+                if(runner.next.data == val){
+                    let temp = runner.next
+                    runner.next = runner.next.next
+                    return temp
+                }
+                runner = runner.next;
+            }
+            return null
+        }
+
+    // EXTRA
+    /**
+     * Inserts a new node before a node that has the given value as its data.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {any} newVal The value to use for the new node that is being added.
+     * @param {any} targetVal The value to use to find the node that the newVal
+     *    should be inserted in front of.
+     * @returns {Node/null} The node if it was added, otherwise null.
+     */
+        prepend(newVal, targetVal) {
+            let runner = this.head;
+            while(runner!== null){
+                if(runner.next != null && runner.next.data === targetVal){
+                    const link = runner.next
+                    runner.next = new Node(newVal)
+                    runner.next.next = link
+                    return runner.next
+                }
+                runner = runner.next
+            }
+            return null;
+        }
 
     /**
    * Removes the last node of this list.
@@ -49,16 +117,16 @@ class SinglyLinkedList {
    * - Space: O(?).
    * @returns {any} The data from the node that was removed.
    */
-    removeBack() {
-        if(this.isEmpty())
-            return null
-        let runner = this.head
-        while(runner.next.next != null)
-            runner = runner.next;
-        let oldTail = runner.next;
-        runner.next = null;
-        return oldTail
-    }
+        removeBack() {
+            if(this.isEmpty())
+                return null
+            let runner = this.head
+            while(runner.next.next != null)
+                runner = runner.next;
+            let oldTail = runner.next;
+            runner.next = null;
+            return oldTail
+        }
 
     /**
    * Determines whether or not the given search value exists in this list.
@@ -67,13 +135,13 @@ class SinglyLinkedList {
    * @param {any} val The data to search for in the nodes of this list.
    * @returns {boolean}
    */
-    contains(val) {
-        let runner = this.head;
-        while (runner != null){
-            if(runner.data == val) return true
+        contains(val) {
+            let runner = this.head;
+            while (runner != null){
+                if(runner.data == val) return true
+            }
+            return false 
         }
-        return false 
-    }
 
     /**
    * Determines whether or not the given search value exists in this list.
@@ -84,18 +152,18 @@ class SinglyLinkedList {
    *    or null when the end of the list has been reached.
    * @returns {boolean}
    */
-    containsRecursive(val, current = this.head) {
-        if(this.isEmpty()){
-            return false 
+        containsRecursive(val, current = this.head) {
+            if(this.isEmpty()){
+                return false 
+            }
+            if(current.data == val){
+                return true
+            }
+            if(current.next == null) {
+                return false 
+            }
+            return this.containsRecursive(val, current.next)
         }
-        if(current.data == val){
-            return true
-        }
-        if(current.next == null) {
-            return false 
-        }
-        return this.containsRecursive(val, current.next)
-    }
 
     /**
      * Determines if this list is empty.
@@ -103,11 +171,11 @@ class SinglyLinkedList {
      * - Space: O(?).
      * @returns {boolean}
      */
-    isEmpty() {
-        if(this.head == null)
-            return true
-        return false
-    }
+        isEmpty() {
+            if(this.head == null)
+                return true
+            return false
+        }
 
     /**
      * Creates a new node with the given data and inserts it at the back of
@@ -117,19 +185,19 @@ class SinglyLinkedList {
      * @param {any} data The data to be added to the new node.
      * @returns {SinglyLinkedList} This list.
      */
-    insertAtBack(data) {
-        if(this.isEmpty()){
-            this.head = new Node(data)
-            return this 
+        insertAtBack(data) {
+            if(this.isEmpty()){
+                this.head = new Node(data)
+                return this 
+            }
+            let runner = this.head
+            while(runner.next != null) {
+                console.log(runner.data)
+                runner = runner.next
+            }
+                runner.next = new Node(data);
+                return this
         }
-        let runner = this.head
-        while(runner.next != null) {
-            console.log(runner.data)
-            runner = runner.next
-        }
-            runner.next = new Node(data);
-            return this
-    }
 
         /**
      * Creates a new node with the given data and inserts that node at the front
@@ -152,11 +220,11 @@ class SinglyLinkedList {
      * - Space: (?).
      * @returns {any} The data from the removed node.
      */
-    removeHead() {
-        const oldHead = this.head
-        this.head = this.head.next
-        return oldHead.data
-    }
+        removeHead() {
+            const oldHead = this.head
+            this.head = this.head.next
+            return oldHead.data
+        }
 
          // EXTRA
     /**
@@ -165,17 +233,17 @@ class SinglyLinkedList {
      * - Space: (?).
      * @returns {number|NaN} The average of the node's data.
      */
-    average() {
-        let runner = this.head;
-        let count = 0;
-        let sum = 0;
-        while(runner.next != null){
-            sum += runner.data;
-            count += 1
-            runner = runner.next;
+        average() {
+            let runner = this.head;
+            let count = 0;
+            let sum = 0;
+            while(runner.next != null){
+                sum += runner.data;
+                count += 1
+                runner = runner.next;
+            }
+            return sum / count
         }
-        return sum / count
-    }
 
 
 
@@ -188,12 +256,12 @@ class SinglyLinkedList {
      * @param {Array<any>} vals The data for each new node.
      * @returns {SinglyLinkedList} This list.
      */
-    seedFromArr(vals) {
-        for (const item of vals) {
-        this.insertAtBack(item);
+        seedFromArr(vals) {
+            for (const item of vals) {
+            this.insertAtBack(item);
+            }
+            return this;
         }
-        return this;
-    }
 
     /**
      * Converts this list into an array containing the data of each node.
@@ -201,16 +269,16 @@ class SinglyLinkedList {
      * - Space: O(n).
      * @returns {Array<any>} An array of each node's data.
      */
-    toArr() {
-        const arr = [];
-        let runner = this.head;
-    
-        while (runner) {
-        arr.push(runner.data);
-        runner = runner.next;
+        toArr() {
+            const arr = [];
+            let runner = this.head;
+        
+            while (runner) {
+            arr.push(runner.data);
+            runner = runner.next;
+            }
+        return arr;
         }
-    return arr;
-    }
 }
 
 
