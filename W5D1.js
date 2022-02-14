@@ -42,6 +42,69 @@ class SinglyLinkedList {
         this.head = null;
     }
 
+        /**
+     * Concatenates the nodes of a given list onto the back of this list.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {SinglyLinkedList} addList An instance of a different list whose
+     *    whose nodes will be added to the back of this list.
+     * @returns {SinglyLinkedList} This list with the added nodes.
+     */
+        /*
+        Pseudocode:
+        create a method that accepts a list and returns a new list
+        make sure the this list is not empty
+        make sure the addList is not empty 
+        get to the end of the this list via a runner (while runner.next !== null)
+        set runner.next == addList.head
+        return this
+        */
+        concat(addList) {
+            if (this.isEmpty()){
+                return addList;
+            }
+            else if (addList.isEmpty()){
+                return this;
+            }
+            let runner = this.head
+            while (runner.next !== null){
+                runner = runner.next;
+            }
+            runner.next = addList.head
+            return this;
+        }
+
+        /*
+    create a method that returns this list
+    create a min reference to keep track and compare min
+    create a chaser reference to keep track of the node before min
+    iterate through the list, find min 
+    while runner.next is not null
+        look at data in next node
+    chaser.next = min.next
+    min.next = this.head
+    this.head = min
+    return this
+    */
+        moveMinToFront() {
+            if (this.isEmpty() || this.head.next === null) return this
+            let min = this.head
+            let runner = this.head
+            let chaser = new ListNode()
+            while (runner.next !== null) {
+                if (runner.next.data < min.data){
+                    min = runner.next
+                    chaser = runner
+                } 
+                runner = runner.next
+            }
+            chaser.next = min.next
+            min.next = this.head
+            this.head = min
+            return this
+        }
+
+
             /**
    * Retrieves the data of the second to last node in this list.
    * - Time: O(?).
@@ -284,6 +347,7 @@ class SinglyLinkedList {
 
 
 
+
 const emptyList = new SinglyLinkedList();
 
 const singleNodeList = new SinglyLinkedList().seedFromArr([1]);
@@ -307,3 +371,5 @@ const sortedDupeList = new SinglyLinkedList().seedFromArr([
 ]);
 
 const tester = new SinglyLinkedList().removeBack([1, 4, 5, 6, 7]);
+
+
