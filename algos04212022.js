@@ -50,3 +50,10 @@ function strCount(str, letter) {
     return count;
 
 }
+
+function test() {
+    count =4 + 3+ 2+ "1"
+    return count
+}
+
+console.log(test())
